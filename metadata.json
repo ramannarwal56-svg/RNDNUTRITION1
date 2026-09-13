@@ -1,0 +1,8 @@
+{
+  "name": "Remix RND Sports Nutrition",
+  "description": "Premium sports nutrition \u0026 gym supplements engineered for performance in Gohana, Sonipat, Haryana, India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
