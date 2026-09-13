@@ -299,7 +299,8 @@ app.post("/api/auth/verify-otp", (req: Request, res: Response) => {
       fullName: clean.split('@')[0],
       phone: clean,
       email: clean.includes('@') ? clean : "",
-      savedAddresses: []
+      savedAddresses: [],
+      wishlist: []
     };
     db.saveUser(user);
   }
@@ -483,6 +484,7 @@ app.post("/api/cart/calculate", (req: Request, res: Response) => {
 
 // 6. Orders API
 app.post("/api/orders", (req: Request, res: Response) => {
+  console.log("POST /api/orders HIT", req.body);
   const { customerName, phone, email, shippingAddress, items, couponCode, paymentMethod, upiUtr, upiPayerName } = req.body;
 
   if (!customerName || !email || !shippingAddress || !Array.isArray(items) || items.length === 0) {

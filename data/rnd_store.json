@@ -17,7 +17,7 @@
       "discountPercentage": 17,
       "sku": "RND-WHEY-ISO-2KG",
       "barcode": "890608821001",
-      "stockQuantity": 39,
+      "stockQuantity": 35,
       "lowStockThreshold": 10,
       "flavour": "Belgian Chocolate",
       "weightOrPackSize": "2 kg (4.4 lbs)",
@@ -263,7 +263,7 @@
       "discountPercentage": 30,
       "sku": "RND-CREA-MICRO-250G",
       "barcode": "890608821004",
-      "stockQuantity": 85,
+      "stockQuantity": 84,
       "lowStockThreshold": 15,
       "flavour": "Unflavoured",
       "weightOrPackSize": "250 g (83 Servings)",
@@ -343,7 +343,7 @@
       "discountPercentage": 20,
       "sku": "RND-CREA-HCL-120G",
       "barcode": "890608821005",
-      "stockQuantity": 26,
+      "stockQuantity": 20,
       "lowStockThreshold": 8,
       "flavour": "Tangy Orange Burst",
       "weightOrPackSize": "120 g (60 Servings)",
@@ -1016,6 +1016,218 @@
     }
   ],
   "orders": [
+    {
+      "id": "RND-2026-5257",
+      "customerName": "Raman Narwal",
+      "phone": "9350364488",
+      "email": "ramannarwal56@gmail.com",
+      "shippingAddress": {
+        "houseBuilding": "12345",
+        "streetArea": "S",
+        "city": "C",
+        "state": "Haryana",
+        "pincode": "123456"
+      },
+      "items": [
+        {
+          "productId": "rnd-creatine-hcl",
+          "name": "RND Creatine HCl Elite Hydrochloride",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Tangy Orange Burst",
+          "size": "120 g (60 Servings)",
+          "price": 1199,
+          "quantity": 1,
+          "subtotal": 1199,
+          "sku": "RND-CREA-HCL-120G"
+        }
+      ],
+      "subtotal": 1199,
+      "discount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 215.82,
+      "totalAmount": 1199,
+      "paymentMethod": "Cash on delivery",
+      "paymentStatus": "Pending",
+      "orderStatus": "Confirmed",
+      "courierName": "Delhivery Surface (India)",
+      "trackingNumber": "RND364488484IN",
+      "createdAt": "2026-09-13T13:53:01.842Z",
+      "updatedAt": "2026-09-13T13:53:01.843Z"
+    },
+    {
+      "id": "RND-2026-2767",
+      "customerName": "Raman Narwal",
+      "phone": "9350364488",
+      "email": "ramannarwal56@gmail.com",
+      "shippingAddress": {
+        "houseBuilding": "12345",
+        "streetArea": "S",
+        "city": "C",
+        "state": "Haryana",
+        "pincode": "123456"
+      },
+      "items": [
+        {
+          "productId": "rnd-creatine-hcl",
+          "name": "RND Creatine HCl Elite Hydrochloride",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Tangy Orange Burst",
+          "size": "120 g (60 Servings)",
+          "price": 1199,
+          "quantity": 1,
+          "subtotal": 1199,
+          "sku": "RND-CREA-HCL-120G"
+        },
+        {
+          "productId": "rnd-whey-isolate",
+          "name": "RND Titanium 100% Whey Isolate",
+          "image": "./images/rnd_whey_iso_1789227825582.jpg",
+          "flavour": "Belgian Chocolate",
+          "size": "2 kg (4.4 lbs)",
+          "price": 3299,
+          "quantity": 2,
+          "subtotal": 6598,
+          "sku": "RND-WHEY-ISO-2KG"
+        },
+        {
+          "productId": "rnd-creatine-micronized",
+          "name": "RND Ultra-Pure Micronized Creatine Monohydrate",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Unflavoured",
+          "size": "250 g (83 Servings)",
+          "price": 699,
+          "quantity": 1,
+          "subtotal": 699,
+          "sku": "RND-CREA-MICRO-250G"
+        }
+      ],
+      "subtotal": 8496,
+      "discount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 1529.28,
+      "totalAmount": 8496,
+      "paymentMethod": "Cash on delivery",
+      "paymentStatus": "Pending",
+      "orderStatus": "Confirmed",
+      "courierName": "Delhivery Surface (India)",
+      "trackingNumber": "RND364488139IN",
+      "createdAt": "2026-09-13T13:51:14.299Z",
+      "updatedAt": "2026-09-13T13:51:14.299Z"
+    },
+    {
+      "id": "RND-2026-8727",
+      "customerName": "Raman Narwal",
+      "phone": "9350364488",
+      "email": "ramannarwal56@gmail.com",
+      "shippingAddress": {
+        "houseBuilding": "12345",
+        "streetArea": "S",
+        "city": "C",
+        "state": "Haryana",
+        "pincode": "123456"
+      },
+      "items": [
+        {
+          "productId": "rnd-creatine-hcl",
+          "name": "RND Creatine HCl Elite Hydrochloride",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Tangy Orange Burst",
+          "size": "120 g (60 Servings)",
+          "price": 1199,
+          "quantity": 1,
+          "subtotal": 1199,
+          "sku": "RND-CREA-HCL-120G"
+        }
+      ],
+      "subtotal": 1199,
+      "discount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 215.82,
+      "totalAmount": 1199,
+      "paymentMethod": "Cash on delivery",
+      "paymentStatus": "Pending",
+      "orderStatus": "Confirmed",
+      "courierName": "Delhivery Surface (India)",
+      "trackingNumber": "RND364488125IN",
+      "createdAt": "2026-09-13T13:47:11.391Z",
+      "updatedAt": "2026-09-13T13:47:11.391Z"
+    },
+    {
+      "id": "RND-2026-1567",
+      "customerName": "Raman Narwal",
+      "phone": "9350364488",
+      "email": "ramannarwal56@gmail.com",
+      "shippingAddress": {
+        "houseBuilding": "12345",
+        "streetArea": "S",
+        "city": "C",
+        "state": "Haryana",
+        "pincode": "123456"
+      },
+      "items": [
+        {
+          "productId": "rnd-creatine-hcl",
+          "name": "RND Creatine HCl Elite Hydrochloride",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Tangy Orange Burst",
+          "size": "120 g (60 Servings)",
+          "price": 1199,
+          "quantity": 1,
+          "subtotal": 1199,
+          "sku": "RND-CREA-HCL-120G"
+        }
+      ],
+      "subtotal": 1199,
+      "discount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 215.82,
+      "totalAmount": 1199,
+      "paymentMethod": "Cash on delivery",
+      "paymentStatus": "Pending",
+      "orderStatus": "Confirmed",
+      "courierName": "Delhivery Surface (India)",
+      "trackingNumber": "RND364488309IN",
+      "createdAt": "2026-09-13T13:46:49.882Z",
+      "updatedAt": "2026-09-13T13:46:49.882Z"
+    },
+    {
+      "id": "RND-2026-6346",
+      "customerName": "Raman Narwal",
+      "phone": "9350364488",
+      "email": "ramannarwal56@gmail.com",
+      "shippingAddress": {
+        "houseBuilding": "12345",
+        "streetArea": "S",
+        "city": "C",
+        "state": "Haryana",
+        "pincode": "123456"
+      },
+      "items": [
+        {
+          "productId": "rnd-creatine-hcl",
+          "name": "RND Creatine HCl Elite Hydrochloride",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Tangy Orange Burst",
+          "size": "120 g (60 Servings)",
+          "price": 1199,
+          "quantity": 1,
+          "subtotal": 1199,
+          "sku": "RND-CREA-HCL-120G"
+        }
+      ],
+      "subtotal": 1199,
+      "discount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 215.82,
+      "totalAmount": 1199,
+      "paymentMethod": "Cash on delivery",
+      "paymentStatus": "Pending",
+      "orderStatus": "Confirmed",
+      "courierName": "Delhivery Surface (India)",
+      "trackingNumber": "RND364488203IN",
+      "createdAt": "2026-09-13T13:45:31.247Z",
+      "updatedAt": "2026-09-13T13:45:31.247Z"
+    },
     {
       "id": "RND-2026-4298",
       "customerName": "Raman Narwal",
