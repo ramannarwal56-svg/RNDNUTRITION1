@@ -70,6 +70,19 @@ export const CheckoutPage: React.FC = () => {
       navigate('cart');
       return;
     }
+    
+    // Fallback manual calculation using local cart data
+    const localSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const localShipping = localSubtotal >= settings.freeShippingThreshold ? 0 : settings.flatShippingRate;
+    const localTax = Math.round(localSubtotal * settings.gstRate * 100) / 100;
+    setCalcSummary({
+      subtotal: localSubtotal,
+      discount: 0,
+      shippingCharge: localShipping,
+      taxAmount: localTax,
+      totalAmount: localSubtotal + localShipping
+    });
+    
     fetchOrderCalculation();
   }, [cart, couponCode]);
 
