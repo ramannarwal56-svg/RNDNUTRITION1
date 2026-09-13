@@ -105,14 +105,17 @@ export const CheckoutPage: React.FC = () => {
       });
 
       if (res.ok) {
-        const data = await res.json();
-        setCalcSummary({
-          subtotal: data.subtotal,
-          discount: data.discount,
-          shippingCharge: data.shippingCharge,
-          taxAmount: data.taxAmount,
-          totalAmount: data.totalAmount
-        });
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const data = await res.json();
+          setCalcSummary({
+            subtotal: data.subtotal,
+            discount: data.discount,
+            shippingCharge: data.shippingCharge,
+            taxAmount: data.taxAmount,
+            totalAmount: data.totalAmount
+          });
+        }
       }
     } catch (err) {
       console.warn("Calculation error:", err);
@@ -181,7 +184,16 @@ export const CheckoutPage: React.FC = () => {
         body: JSON.stringify(orderPayload)
       });
 
-      const data = await res.json();
+      let data;
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        console.error("Server returned non-JSON response:", text);
+        throw new Error("Server connection error or invalid response. Please try again.");
+      }
+
       if (!res.ok) {
         throw new Error(data.error || "Order placement failed.");
       }

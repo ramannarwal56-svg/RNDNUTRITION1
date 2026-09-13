@@ -293,7 +293,7 @@ app.post("/api/auth/verify-otp", (req: Request, res: Response) => {
   const clean = email.toLowerCase().trim();
   
   // Skip OTP check - generate user directly
-  let user = db.getUser(clean);
+  let user = db.getUserByEmail(clean);
   if (!user) {
     user = {
       fullName: clean.split('@')[0],
@@ -569,7 +569,7 @@ app.post("/api/orders", (req: Request, res: Response) => {
   const order: Order = {
     id: orderId,
     customerName,
-    phone,
+    phone: phone || "",
     email: email || "",
     shippingAddress,
     items: orderItems,
@@ -585,7 +585,7 @@ app.post("/api/orders", (req: Request, res: Response) => {
     upiUtr: upiUtr || undefined,
     upiPayerName: upiPayerName || undefined,
     courierName: "Delhivery Surface (India)",
-    trackingNumber: `RND${phone.slice(-6)}${Math.floor(100 + Math.random() * 900)}IN`,
+    trackingNumber: `RND${(phone || "000000").slice(-6)}${Math.floor(100 + Math.random() * 900)}IN`,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
@@ -597,7 +597,8 @@ app.post("/api/orders", (req: Request, res: Response) => {
   const cleanEmail = (actualEmail || "").toLowerCase().trim();
   const user = db.getUserByEmail(cleanEmail);
   if (user) {
-    const existingAddr = user.savedAddresses.find(a => a.pincode === shippingAddress.pincode && a.houseBuilding === shippingAddress.houseBuilding);
+    user.savedAddresses = user.savedAddresses || [];
+    const existingAddr = user.savedAddresses.find((a: any) => a.pincode === shippingAddress.pincode && a.houseBuilding === shippingAddress.houseBuilding);
     if (!existingAddr) {
       user.savedAddresses.push(shippingAddress);
       db.saveUser(user);
