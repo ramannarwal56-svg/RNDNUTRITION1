@@ -20,7 +20,6 @@ import { WishlistPage } from './pages/WishlistPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { LegalPage } from './pages/LegalPage';
-import { AdminPage } from './pages/AdminPage';
 import { BlogPage } from './pages/BlogPage';
 
 import { CheckCircle2, AlertCircle, Info } from 'lucide-react';
@@ -67,8 +66,6 @@ const AppContent: React.FC = () => {
         return <LegalPage />;
       case 'blog':
         return <BlogPage />;
-      case 'admin':
-        return <AdminPage />;
       case 'auth':
         return <AccountPage />;
       default:

@@ -273,18 +273,6 @@ export const Header: React.FC = () => {
               <User className="w-5 h-5" />
             </button>
 
-            {/* Admin Dashboard shortcut if admin */}
-            {isAdmin && (
-              <button
-                id="header-admin-btn"
-                onClick={() => navigate('admin')}
-                className="p-2.5 rounded-full bg-amber-500/20 text-[#D4AF37] border border-[#D4AF37]/50 hover:bg-[#D4AF37] hover:text-black transition-all"
-                title="Admin Control Center"
-              >
-                <SettingsIcon className="w-5 h-5" />
-              </button>
-            )}
-
             {/* Mobile Menu Hamburger */}
             <button
               id="header-mobile-menu-toggle"

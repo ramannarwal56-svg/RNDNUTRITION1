@@ -202,6 +202,26 @@ export const CheckoutPage: React.FC = () => {
         throw new Error(data.error || "Order placement failed.");
       }
 
+      // Generate WhatsApp order message
+      const adminPhone = "919306667128"; // 9306667128 with India country code
+      let waMessage = `*New Order: ${data.id}*\n\n`;
+      waMessage += `*Customer:* ${customerName.trim()}\n`;
+      waMessage += `*Phone:* ${cleanPhone}\n`;
+      if (email.trim()) waMessage += `*Email:* ${email.trim()}\n`;
+      waMessage += `\n*Items:*\n`;
+      cart.forEach(item => {
+        waMessage += `- ${item.quantity}x ${item.productId} (${item.selectedFlavour || 'Standard'}, ${item.selectedSize || 'Standard'})\n`;
+      });
+      waMessage += `\n*Total:* ₹${calcSummary?.totalAmount || '0'}\n`;
+      waMessage += `*Payment:* ${paymentMethod}\n`;
+      if (upiUtr.trim()) {
+        waMessage += `*UPI UTR:* ${upiUtr.trim()}\n`;
+      }
+      waMessage += `\n*Delivery Address:*\n${houseBuilding.trim()}, ${streetArea.trim()}\n${city.trim()}, ${state} - ${pincode.trim()}`;
+
+      const waUrl = `https://wa.me/${adminPhone}?text=${encodeURIComponent(waMessage)}`;
+      window.open(waUrl, '_blank');
+
       clearCart();
       showToast("Order placed successfully!", "success");
       navigate('order-success', { orderId: data.id });

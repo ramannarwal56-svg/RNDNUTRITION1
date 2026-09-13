@@ -161,12 +161,6 @@ export const Footer: React.FC = () => {
                   Contact RND Gohana
                 </button>
               </li>
-              <li>
-                <button onClick={() => navigate('admin-login')} className="text-neutral-500 hover:text-amber-300 text-xs transition-colors flex items-center gap-1">
-                  <span>Store Admin Portal</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </button>
-              </li>
             </ul>
           </div>
 
