@@ -41,8 +41,14 @@ export const HomePage: React.FC = () => {
   }, [user]);
 
   const fetchPastOrders = async () => {
+    if (!user) {
+      setPastOrders([]);
+      setPurchasedProductIds(new Set());
+      return;
+    }
+
     try {
-      const phone = user?.email || '9306667128';
+      const phone = user.phone || user.email;
       const res = await fetch(`/api/orders?phone=${phone}`);
       if (res.ok) {
         const data = await res.json();
@@ -54,14 +60,15 @@ export const HomePage: React.FC = () => {
           });
           setPurchasedProductIds(ids);
           return;
+        } else {
+          setPastOrders([]);
+          setPurchasedProductIds(new Set());
         }
       }
     } catch (err) {
       console.warn("Orders fetch failed:", err);
     }
-
-    // Default fallback to Raman Narwal's authentic athlete purchase history
-    setPurchasedProductIds(new Set(['rnd-whey-isolate', 'rnd-creatine-micronized']));
+    setPurchasedProductIds(new Set());
   };
 
   const fetchProducts = async () => {
@@ -104,41 +111,7 @@ export const HomePage: React.FC = () => {
       return Array.from(map.values());
     }
 
-    // Fallback based on Raman Narwal's verified past purchase order
-    return [
-      {
-        item: {
-          productId: 'rnd-whey-isolate',
-          name: 'RND Titanium 100% Whey Isolate',
-          image: './images/rnd_whey_protein_1789192519698.jpg',
-          flavour: 'Belgian Chocolate',
-          size: '2 kg (4.4 lbs)',
-          price: 3299,
-          quantity: 1,
-          subtotal: 3299,
-          sku: 'RND-WHEY-ISO-2KG-CHOC'
-        },
-        orderDate: '10 Jun 2026',
-        orderId: 'RND-2026-1082',
-        orderStatus: 'Delivered'
-      },
-      {
-        item: {
-          productId: 'rnd-creatine-micronized',
-          name: 'RND Ultra-Pure Micronized Creatine Monohydrate',
-          image: './images/rnd_creatine_container_1789192533564.jpg',
-          flavour: 'Unflavoured',
-          size: '250 g',
-          price: 699,
-          quantity: 1,
-          subtotal: 699,
-          sku: 'RND-CREA-250G'
-        },
-        orderDate: '10 Jun 2026',
-        orderId: 'RND-2026-1082',
-        orderStatus: 'Delivered'
-      }
-    ];
+    return [];
   }, [pastOrders]);
 
   const handleReorderAllPastItems = () => {
