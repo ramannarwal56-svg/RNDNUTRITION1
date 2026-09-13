@@ -343,7 +343,7 @@
       "discountPercentage": 20,
       "sku": "RND-CREA-HCL-120G",
       "barcode": "890608821005",
-      "stockQuantity": 28,
+      "stockQuantity": 26,
       "lowStockThreshold": 8,
       "flavour": "Tangy Orange Burst",
       "weightOrPackSize": "120 g (60 Servings)",
@@ -1017,6 +1017,82 @@
   ],
   "orders": [
     {
+      "id": "RND-2026-4298",
+      "customerName": "Raman Narwal",
+      "phone": "9309958435",
+      "email": "ramannarwal56@gmail.com",
+      "shippingAddress": {
+        "houseBuilding": "12345",
+        "streetArea": "12345",
+        "city": "12345",
+        "state": "Haryana",
+        "pincode": "123456"
+      },
+      "items": [
+        {
+          "productId": "rnd-creatine-hcl",
+          "name": "RND Creatine HCl Elite Hydrochloride",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Tangy Orange Burst",
+          "size": "120 g (60 Servings)",
+          "price": 1199,
+          "quantity": 1,
+          "subtotal": 1199,
+          "sku": "RND-CREA-HCL-120G"
+        }
+      ],
+      "subtotal": 1199,
+      "discount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 215.82,
+      "totalAmount": 1199,
+      "paymentMethod": "Cash on delivery",
+      "paymentStatus": "Pending",
+      "orderStatus": "Confirmed",
+      "courierName": "Delhivery Surface (India)",
+      "trackingNumber": "RND958435187IN",
+      "createdAt": "2026-09-13T11:06:17.294Z",
+      "updatedAt": "2026-09-13T11:06:17.294Z"
+    },
+    {
+      "id": "RND-2026-3549",
+      "customerName": "Raman Narwal",
+      "phone": "9309958435",
+      "email": "ramannarwal56@gmail.com",
+      "shippingAddress": {
+        "houseBuilding": "12345",
+        "streetArea": "S",
+        "city": "C",
+        "state": "Haryana",
+        "pincode": "123456"
+      },
+      "items": [
+        {
+          "productId": "rnd-creatine-hcl",
+          "name": "RND Creatine HCl Elite Hydrochloride",
+          "image": "./images/rnd_creatine_jar_1789227844026.jpg",
+          "flavour": "Tangy Orange Burst",
+          "size": "120 g (60 Servings)",
+          "price": 1199,
+          "quantity": 1,
+          "subtotal": 1199,
+          "sku": "RND-CREA-HCL-120G"
+        }
+      ],
+      "subtotal": 1199,
+      "discount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 215.82,
+      "totalAmount": 1199,
+      "paymentMethod": "Cash on delivery",
+      "paymentStatus": "Pending",
+      "orderStatus": "Confirmed",
+      "courierName": "Delhivery Surface (India)",
+      "trackingNumber": "RND958435701IN",
+      "createdAt": "2026-09-13T11:06:02.689Z",
+      "updatedAt": "2026-09-13T11:06:02.689Z"
+    },
+    {
       "id": "RND-2026-8649",
       "customerName": "Rann",
       "phone": "9350363448",
@@ -1495,6 +1571,13 @@
           "city": "Sonipat",
           "state": "Haryana",
           "pincode": "131301"
+        },
+        {
+          "houseBuilding": "12345",
+          "streetArea": "S",
+          "city": "C",
+          "state": "Haryana",
+          "pincode": "123456"
         }
       ],
       "wishlist": [

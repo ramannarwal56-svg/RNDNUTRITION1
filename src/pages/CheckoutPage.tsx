@@ -141,7 +141,11 @@ export const CheckoutPage: React.FC = () => {
       setErrorMessage("Please enter a valid email address.");
       return;
     }
-    const cleanPhone = "0000000000"; // Dummy phone to bypass server requirement if any
+    const cleanPhone = phone.replace(/\D/g, "");
+    if (cleanPhone.length !== 10) {
+      setErrorMessage("Please enter a valid 10-digit mobile number.");
+      return;
+    }
     if (!houseBuilding.trim() || !streetArea.trim() || !city.trim() || pincode.trim().length !== 6) {
       setErrorMessage("Please complete your delivery address with a valid 6-digit Indian PIN code.");
       return;
@@ -191,7 +195,7 @@ export const CheckoutPage: React.FC = () => {
       } else {
         const text = await res.text();
         console.error("Server returned non-JSON response:", text);
-        throw new Error("Server connection error or invalid response. Please try again.");
+        throw new Error(`Server returned ${res.status} ${res.statusText}. Text: ${text.substring(0, 50)}...`);
       }
 
       if (!res.ok) {
