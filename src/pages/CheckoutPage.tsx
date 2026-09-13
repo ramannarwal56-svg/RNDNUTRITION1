@@ -195,7 +195,10 @@ export const CheckoutPage: React.FC = () => {
       } else {
         const text = await res.text();
         console.error("Server returned non-JSON response:", text);
-        throw new Error(`Server returned ${res.status} ${res.statusText}. Text: ${text.substring(0, 50)}...`);
+        if (res.status === 405 || res.status === 302 || text.includes('405 Not Allowed') || text.includes('__cookie_check')) {
+          throw new Error("Security session expired. Please refresh the page to securely place your order.");
+        }
+        throw new Error(`Server connection error or invalid response.`);
       }
 
       if (!res.ok) {
