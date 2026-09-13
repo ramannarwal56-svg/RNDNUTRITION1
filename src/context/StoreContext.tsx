@@ -190,14 +190,25 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const sendEmailOtp = async (email: string) => {
-    const res = await fetch('/api/auth/send-otp', {
+    const res = await fetch('/api/send-otp', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify({ email })
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Failed to send OTP');
-    return data;
+    
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to send OTP');
+      return data;
+    } else {
+      const text = await res.text();
+      console.error("Server returned non-JSON response:", text);
+      throw new Error("A server error occurred. Please try again later.");
+    }
   };
 
   const loginWithEmail = async (email: string, otp: string) => {

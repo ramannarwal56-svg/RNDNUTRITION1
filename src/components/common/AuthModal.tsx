@@ -67,13 +67,12 @@ export const AuthModal: React.FC = () => {
               <User className="w-6 h-6" />
             </div>
             <h2 className="text-2xl font-black uppercase tracking-tight text-white font-display">
-              Sign In to Continue
+              SIGN IN TO CONTINUE
             </h2>
             <p className="text-sm text-neutral-400">
               Please verify your email address to purchase authentic products.
             </p>
           </div>
-
           {!otpSent ? (
             <form onSubmit={handleSendOtp} className="space-y-4 mt-6">
               <div className="space-y-2">
@@ -96,7 +95,7 @@ export const AuthModal: React.FC = () => {
                 disabled={authLoading || emailInput.length < 5}
                 className="w-full bg-[#D4AF37] text-neutral-950 py-3.5 rounded-xl font-bold uppercase tracking-wide hover:bg-[#F3E5AB] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
               >
-                {authLoading ? 'Sending...' : 'Send Secure OTP'}
+                {authLoading ? 'SENDING...' : 'SEND SECURE OTP'}
               </button>
             </form>
           ) : (
