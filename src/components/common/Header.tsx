@@ -268,7 +268,7 @@ export const Header: React.FC = () => {
               id="header-user-btn"
               onClick={() => navigate(user ? 'account' : 'auth')}
               className="p-2.5 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
-              title={user ? `Account: ${user.fullName}` : "Login with Phone OTP"}
+              title={user ? `Account: ${user.fullName}` : "Customer Login"}
             >
               <User className="w-5 h-5" />
             </button>

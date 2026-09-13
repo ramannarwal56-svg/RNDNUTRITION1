@@ -66,40 +66,19 @@ export const AccountPage: React.FC = () => {
     }
   };
 
-  const handleSendOtp = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanEmail = emailInput.toLowerCase().trim();
-    if (!cleanEmail || !cleanEmail.includes('@')) {
-      showToast("Please enter a valid email address", "warning");
+    if (!cleanEmail) {
+      showToast("Please enter an email or phone", "warning");
       return;
     }
     setAuthLoading(true);
     try {
-      const res = await sendEmailOtp(cleanEmail);
-      setOtpSent(true);
-      showToast("OTP sent to your email address!", "success");
-    } catch (err: any) {
-      showToast(err?.message || "Failed to send OTP", "error");
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!otpInput || otpInput.length < 4) {
-      showToast("Please enter the OTP received", "warning");
-      return;
-    }
-    setAuthLoading(true);
-    try {
-      const cleanEmail = emailInput.toLowerCase().trim();
-      await loginWithEmail(cleanEmail, otpInput.trim());
+      await loginWithEmail(cleanEmail, "0000"); // OTP not required anymore
       showToast("Welcome to RND Sports Nutrition!", "success");
-      setOtpSent(false);
-      setOtpInput('');
     } catch (err: any) {
-      showToast(err?.message || "Invalid OTP entered", "error");
+      showToast(err?.message || "Failed to login", "error");
     } finally {
       setAuthLoading(false);
     }
@@ -144,79 +123,38 @@ export const AccountPage: React.FC = () => {
               Athlete Sign In
             </h1>
             <p className="text-xs text-neutral-400">
-              Instant login with your email. No passwords required.
+              Instant login with your email or phone number.
             </p>
           </div>
 
-          {!otpSent ? (
-            <form onSubmit={handleSendOtp} className="space-y-4">
-              <div>
-                <label className="text-xs text-neutral-400 font-bold uppercase tracking-wider block mb-1">
-                  Email Address
-                </label>
-                <div className="flex items-center">
-                  <span className="bg-neutral-800 px-3.5 py-3 rounded-l-xl text-xs text-neutral-400 border border-r-0 border-neutral-700">
-                    ✉️
-                  </span>
-                  <input
-                    type="email"
-                    required
-                    
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    placeholder="athlete@example.com"
-                    className="w-full bg-neutral-950 border border-neutral-700 rounded-r-xl p-3 text-xs text-white focus:outline-none focus:border-[#D4AF37]"
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={authLoading}
-                className="w-full py-3.5 rounded-xl bg-[#D4AF37] hover:bg-amber-400 text-neutral-950 text-xs font-black uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
-              >
-                {authLoading ? 'Sending OTP...' : 'Send Verification OTP'}
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={handleVerifyOtp} className="space-y-4">
-              <div className="p-3 rounded-xl bg-neutral-950 border border-neutral-800 text-xs text-neutral-300 flex items-center justify-between">
-                <span>OTP sent to {emailInput}</span>
-                <button
-                  type="button"
-                  onClick={() => setOtpSent(false)}
-                  className="text-xs text-[#D4AF37] font-bold hover:underline"
-                >
-                  Change
-                </button>
-              </div>
-
-              
-
-              <div>
-                <label className="text-xs text-neutral-400 font-bold uppercase tracking-wider block mb-1">
-                  Enter 6-Digit OTP
-                </label>
+                    <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="text-xs text-neutral-400 font-bold uppercase tracking-wider block mb-1">
+                Email Address or Phone
+              </label>
+              <div className="flex items-center">
+                <span className="bg-neutral-800 px-3.5 py-3 rounded-l-xl text-xs text-neutral-400 border border-r-0 border-neutral-700">
+                  👤
+                </span>
                 <input
                   type="text"
                   required
-                  maxLength={6}
-                  value={otpInput}
-                  onChange={(e) => setOtpInput(e.target.value)}
-                  placeholder="• • • • • •"
-                  className="w-full bg-neutral-950 border border-neutral-700 rounded-xl p-3 text-center text-sm font-mono tracking-widest text-white focus:outline-none focus:border-[#D4AF37]"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  placeholder="athlete@example.com or 9306667128"
+                  className="w-full bg-neutral-950 border border-neutral-700 rounded-r-xl p-3 text-xs text-white focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={authLoading}
-                className="w-full py-3.5 rounded-xl bg-[#D4AF37] hover:bg-amber-400 text-neutral-950 text-xs font-black uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
-              >
-                {authLoading ? 'Verifying...' : 'Verify & Log In'}
-              </button>
-            </form>
-          )}
+            <button
+              type="submit"
+              disabled={authLoading}
+              className="w-full py-3.5 rounded-xl bg-[#D4AF37] hover:bg-amber-400 text-neutral-950 text-xs font-black uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
+            >
+              {authLoading ? "Signing In..." : "Log In Securely"}
+            </button>
+          </form>
 
           <div className="pt-2 text-center text-[11px] text-neutral-500">
             By signing in, you agree to RND's Terms of Service and Privacy Policy.

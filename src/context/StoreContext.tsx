@@ -224,11 +224,6 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const addToCart = (product: Product, flavour?: string, size?: string, quantity: number = 1): boolean => {
-    if (!user) {
-      setIsAuthModalOpen(true);
-      return false;
-    }
-
     const chosenFlavour = flavour || product.flavour;
     const chosenSize = size || product.weightOrPackSize;
     let chosenPrice = product.salePrice;

@@ -4,7 +4,6 @@ import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { FloatingWhatsApp } from './components/common/FloatingWhatsApp';
 import { FitGuideModal } from './components/common/FitGuideModal';
-import { AuthModal } from './components/common/AuthModal';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -93,7 +92,6 @@ const AppContent: React.FC = () => {
       {/* Floating Interactive Widgets */}
       <FloatingWhatsApp />
       <FitGuideModal />
-      <AuthModal />
 
       {/* Global Toast Notifications */}
       {toast && (

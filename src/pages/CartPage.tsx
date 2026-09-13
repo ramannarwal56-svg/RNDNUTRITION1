@@ -347,11 +347,7 @@ export const CartPage: React.FC = () => {
               <button
                 id="cart-proceed-checkout-btn"
                 onClick={() => {
-                  if (!user) {
-                    openAuthModal();
-                  } else {
-                    navigate('checkout', { coupon: appliedCoupon?.code || '' });
-                  }
+                  navigate('checkout', { coupon: appliedCoupon?.code || '' });
                 }}
                 className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-600 via-[#D4AF37] to-amber-500 hover:brightness-110 text-neutral-950 font-black text-sm uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2"
               >

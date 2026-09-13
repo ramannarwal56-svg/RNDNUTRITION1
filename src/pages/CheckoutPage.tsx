@@ -20,7 +20,7 @@ export const CheckoutPage: React.FC = () => {
 
   // Customer Contact
   const [customerName, setCustomerName] = useState(user?.fullName || '');
-  const [phone, setPhone] = useState(user?.email || '');
+  const [phone, setPhone] = useState(user?.phone || '');
   const [email, setEmail] = useState(user?.email || '');
 
   // Shipping Address
@@ -254,16 +254,22 @@ export const CheckoutPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label className="text-xs text-neutral-400 block mb-1">Email Address (For Tax Invoice PDF) *</label>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="e.g. customer@example.com"
-                    className="w-full bg-neutral-950 border border-neutral-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-[#D4AF37]"
-                  />
+                <div>
+                  <label className="text-xs text-neutral-400 block mb-1">Phone Number (10 digits) *</label>
+                  <div className="flex items-center">
+                    <span className="bg-neutral-800 px-3 py-3 rounded-l-xl text-xs text-neutral-400 border border-r-0 border-neutral-700">
+                      +91
+                    </span>
+                    <input
+                      type="tel"
+                      required
+                      maxLength={10}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+                      placeholder="9876543210"
+                      className="w-full bg-neutral-950 border border-neutral-700 rounded-r-xl p-3 text-xs text-white focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

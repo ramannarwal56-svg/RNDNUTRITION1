@@ -116,7 +116,6 @@ export const HomePage: React.FC = () => {
 
   const handleReorderAllPastItems = () => {
     if (!user) {
-      openAuthModal();
       return;
     }
     let count = 0;

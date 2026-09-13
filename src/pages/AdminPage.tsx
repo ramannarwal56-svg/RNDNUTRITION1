@@ -663,10 +663,11 @@ export const AdminPage: React.FC = () => {
 
                       <td className="align-top space-y-1">
                         <div className="font-bold text-white text-sm">₹{o.totalAmount}</div>
-                        <div className="text-[11px] text-neutral-400">{o.paymentMethod}</div>
+                        <div className="text-[11px] text-neutral-400">Payment: {o.paymentMethod}</div>
                         {o.upiUtr && (
-                          <div className="text-[10px] text-amber-300 font-mono bg-neutral-950 p-1 rounded border border-neutral-800">
-                            UTR: {o.upiUtr}
+                          <div className="text-[10px] text-amber-300 font-mono bg-neutral-950 p-1.5 rounded border border-amber-500/30">
+                            <strong>Payment Proof:</strong><br/>
+                            UTR / TXN ID: {o.upiUtr}
                           </div>
                         )}
                       </td>

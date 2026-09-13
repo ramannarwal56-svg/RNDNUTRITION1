@@ -283,142 +283,33 @@ app.get("/api/categories", (_req: Request, res: Response) => {
   res.json({ categories: categoryDetails });
 });
 
-// 4. Email OTP Authentication API
-app.post("/api/send-otp", async (req: Request, res: Response) => {
-  try {
-    const { email } = req.body;
-    
-    if (!email || typeof email !== 'string' || !email.includes("@")) {
-      return res.status(400).json({ error: "A valid email address is required." });
-    }
-    
-    const cleanEmail = email.toLowerCase().trim();
-    
-    // Generate secure 6-digit OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    
-    // In the real system, you might save this to your database with an expiry timestamp
-    // For now we use the existing db.generateOtp to hook into the current system
-    const result = db.generateOtp(cleanEmail, otp); 
-    
-    if (!result.success && result.cooldownRemaining) {
-      return res.status(429).json({ 
-        error: result.message || "Please wait before requesting another OTP.", 
-        cooldownRemaining: result.cooldownRemaining 
-      });
-    }
-
-    const SMTP_EMAIL = process.env.SMTP_EMAIL || "your_email@gmail.com";
-    const SMTP_PASSWORD = process.env.SMTP_PASSWORD || "your_app_password";
-    
-    try {
-      // Provide nodemailer setup as requested
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: { 
-          user: SMTP_EMAIL, 
-          pass: SMTP_PASSWORD 
-        }
-      });
-      
-      const mailOptions = {
-        from: `"Secure Auth" <${SMTP_EMAIL}>`,
-        to: cleanEmail,
-        subject: "Your Secure Login OTP",
-        text: `Your secure One-Time Password (OTP) is: ${otp}\n\nIt expires in 5 minutes. Do not share this with anyone.`
-      };
-      
-      // In a real environment, uncomment to actually send:
-      // await transporter.sendMail(mailOptions);
-      
-      return res.status(200).json({
-        success: true,
-        message: "OTP sent successfully",
-        email: cleanEmail
-      });
-    } catch (err: any) {
-      console.error("Nodemailer error:", err);
-      return res.status(500).json({ error: "Failed to send email OTP. Please check server configuration." });
-    }
-  } catch (err: any) {
-    console.error("Server error:", err);
-    return res.status(500).json({ error: "Internal server error during OTP generation." });
-  }
-});
-
-app.post("/api/auth/send-otp", async (req: Request, res: Response) => {
-  const email = req.body.email || req.body.phone;
-  if (!email || !email.includes("@")) {
-    return res.status(400).json({ error: "A valid email address is required." });
-  }
-
-  const clean = email.toLowerCase().trim();
-  const result = db.generateOtp(clean);
-  if (!result.success) {
-    return res.status(429).json({ error: result.message, cooldownRemaining: result.cooldownRemaining });
-  }
-
-  let provider = process.env.OTP_PROVIDER || "mock";
-  const SMTP_EMAIL = process.env.SMTP_EMAIL || "ramannarwal56@gmail.com";
-  const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
-
-  if (adminGmailAccessToken) {
-    const emailHtml = `
-      <h2>Your RND Sports Nutrition Login Code</h2>
-      <p>Your secure login code is: <strong>${result.otp}</strong></p>
-      <p>It expires in 5 minutes. Do not share this with anyone.</p>
-      <p>- RND Sports Nutrition Team</p>
-    `;
-    const sent = await sendEmailViaGmail(clean, "Your Secure RND Login Code", "", emailHtml);
-    if (sent) provider = "gmail_api";
-  } else if (SMTP_EMAIL && SMTP_PASSWORD) {
-    try {
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: { user: SMTP_EMAIL, pass: SMTP_PASSWORD }
-      });
-      await transporter.sendMail({
-        from: `"RND Sports Nutrition" <${SMTP_EMAIL}>`,
-        to: clean,
-        subject: "Your Secure RND Login Code",
-        text: `Your secure login code is: ${result.otp}\nIt expires in 5 minutes. Do not share this with anyone.\n\n- RND Sports Nutrition Team`
-      });
-      provider = "nodemailer";
-    } catch (err) {
-      console.error("Failed to send live OTP via Nodemailer:", err);
-    }
-  }
-
-  res.json({
-    message: result.message,
-    phone: clean, // keeping phone key for payload backward compat
-    email: clean,
-    cooldownSeconds: 60,
-        provider
-  });
-});
-
 app.post("/api/auth/verify-otp", (req: Request, res: Response) => {
   const email = req.body.email || req.body.phone;
-  const { otp } = req.body;
 
-  if (!email || !otp) {
-    return res.status(400).json({ error: "Email address and OTP code are required." });
+  if (!email) {
+    return res.status(400).json({ error: "Email address is required." });
   }
 
   const clean = email.toLowerCase().trim();
-  const result = db.verifyOtp(clean, otp);
-
-  if (!result.valid) {
-    return res.status(400).json({ error: result.message });
+  
+  // Skip OTP check - generate user directly
+  let user = db.getUser(clean);
+  if (!user) {
+    user = {
+      fullName: clean.split('@')[0],
+      phone: clean,
+      email: clean.includes('@') ? clean : "",
+      savedAddresses: []
+    };
+    db.saveUser(user);
   }
 
   const isAdmin = clean === "ramannarwal56@gmail.com" || clean === ADMIN_PHONE;
 
   res.json({
-    message: result.message,
+    message: "Login successful",
     token: `rnd_user_token_${clean}_${Date.now()}`,
-    user: result.user,
+    user: user,
     isAdmin
   });
 });
