@@ -105,14 +105,14 @@ export const AdminPage: React.FC = () => {
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminPin === 'admin123' || adminPin === '9306667128' || adminPin === '131301') {
+    if (adminPin === 'pixel1750') {
       setIsAdminLoggedIn(true);
       sessionStorage.setItem('rnd_admin_auth', 'true');
       setAuthError('');
       fetchAdminData();
       showToast("Welcome Raman Narwal (Admin)", "success");
     } else {
-      setAuthError("Incorrect Admin PIN. Hint: 9306667128 or admin123");
+      setAuthError("Incorrect Admin PIN.");
     }
   };
 
@@ -311,9 +311,6 @@ export const AdminPage: React.FC = () => {
                 placeholder="PIN or Password"
                 className="w-full bg-neutral-950 border border-neutral-700 rounded-xl p-3 text-xs text-white text-center font-mono focus:outline-none focus:border-[#D4AF37]"
               />
-              <span className="text-[10px] text-neutral-500 block mt-1 text-center">
-                Demo Admin PIN: <strong className="text-neutral-300">9306667128</strong> or <strong className="text-neutral-300">admin123</strong>
-              </span>
             </div>
 
             <button
