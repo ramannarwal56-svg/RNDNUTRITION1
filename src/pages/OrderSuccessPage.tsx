@@ -88,6 +88,33 @@ export const OrderSuccessPage: React.FC = () => {
               <strong className="text-white text-sm">3 - 5 Business Days</strong>
             </div>
           </div>
+          
+          {routeParams.waMessage && (
+            <div className="mt-6 p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/50 flex flex-col items-center">
+              <h3 className="text-emerald-400 font-bold mb-2 text-lg">Action Required: Send Order Details</h3>
+              <p className="text-sm text-neutral-300 mb-6 max-w-md mx-auto text-center leading-relaxed">
+                Please send your secure order summary directly to Raman Narwal. This confirms your payment and initiates dispatch!
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+                <a
+                  href={`https://wa.me/91${settings.whatsapp}?text=${routeParams.waMessage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm uppercase tracking-wide flex items-center justify-center gap-3 transition-all shadow-[0_4px_20px_rgba(5,150,105,0.4)] hover:-translate-y-1"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp
+                </a>
+                <a
+                  href={`mailto:ramannarwal56@gmail.com?subject=New Order: ${order?.id || orderId}&body=${routeParams.waMessage}`}
+                  className="px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-wide flex items-center justify-center gap-3 transition-all shadow-[0_4px_20px_rgba(37,99,235,0.4)] hover:-translate-y-1"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  Email
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Order Details & UPI verification note */}

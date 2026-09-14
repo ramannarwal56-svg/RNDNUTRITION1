@@ -222,12 +222,9 @@ export const CheckoutPage: React.FC = () => {
       }
       waMessage += `\n*Delivery Address:*\n${houseBuilding.trim()}, ${streetArea.trim()}\n${city.trim()}, ${state} - ${pincode.trim()}`;
 
-      const waUrl = `https://wa.me/${adminPhone}?text=${encodeURIComponent(waMessage)}`;
-      window.open(waUrl, '_blank');
-
       clearCart();
-      showToast("Order placed successfully!", "success");
-      navigate('order-success', { orderId: data.id });
+      showToast("Order generated successfully! Please confirm via WhatsApp.", "success");
+      navigate('order-success', { orderId: data.id, waMessage: encodeURIComponent(waMessage) });
     } catch (err: any) {
       setErrorMessage(err?.message || "Could not process order. Please try again.");
     } finally {

@@ -217,7 +217,7 @@ export const ProductDetailPage: React.FC = () => {
     } catch (e) {
       console.warn("Related fetch error, using fallback:", e);
       import('../../server/data/initialData').then(mod => {
-        const related = mod.INITIAL_PRODUCTS.filter(p => p.category === category && p.id !== currentId).slice(0, 3);
+        const related = (mod.INITIAL_PRODUCTS || []).filter(p => p.category === category && p.id !== currentId).slice(0, 3);
         setRelatedProducts(related);
       });
     }

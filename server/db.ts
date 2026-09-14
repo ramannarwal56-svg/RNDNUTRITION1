@@ -194,17 +194,26 @@ export const db = {
 
   // Orders
   getOrders(): Order[] {
-    return ensureDbLoaded().orders;
+    const data = ensureDbLoaded();
+    if (!data.orders) {
+      data.orders = [];
+    }
+    return data.orders;
   },
   getOrderById(id: string): Order | undefined {
-    return ensureDbLoaded().orders.find(o => o.id.toUpperCase() === id.toUpperCase());
+    const orders = this.getOrders();
+    return orders.find(o => o.id.toUpperCase() === id.toUpperCase());
   },
   getOrdersByPhone(phone: string): Order[] {
+    const orders = this.getOrders();
     const clean = phone.replace(/\D/g, '').slice(-10);
-    return ensureDbLoaded().orders.filter(o => o.phone.replace(/\D/g, '').slice(-10) === clean);
+    return orders.filter(o => o.phone.replace(/\D/g, '').slice(-10) === clean);
   },
   saveOrder(order: Order): Order {
     const data = ensureDbLoaded();
+    if (!data.orders) {
+      data.orders = [];
+    }
     const idx = data.orders.findIndex(o => o.id === order.id);
     if (idx >= 0) {
       data.orders[idx] = order;
@@ -236,10 +245,18 @@ export const db = {
 
   // Settings
   getSettings(): StoreSettings {
-    return ensureDbLoaded().settings;
+    const data = ensureDbLoaded();
+    if (!data.settings) {
+      data.settings = { ...INITIAL_SETTINGS };
+      persistDb();
+    }
+    return data.settings;
   },
   updateSettings(newSettings: Partial<StoreSettings>): StoreSettings {
     const data = ensureDbLoaded();
+    if (!data.settings) {
+      data.settings = { ...INITIAL_SETTINGS };
+    }
     data.settings = { ...data.settings, ...newSettings };
     persistDb();
     return data.settings;
@@ -313,12 +330,15 @@ export const db = {
 
   // Users
   getUserByEmail(email: string): UserProfile | undefined {
+    const data = ensureDbLoaded();
+    if (!data.users) data.users = {};
     const clean = email.toLowerCase().trim();
-    return ensureDbLoaded().users[clean];
+    return data.users[clean];
   },
 
   saveUser(user: UserProfile): UserProfile {
     const data = ensureDbLoaded();
+    if (!data.users) data.users = {};
     const clean = user.email.toLowerCase().trim();
     data.users[clean] = user;
     persistDb();

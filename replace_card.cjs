@@ -1,122 +1,22 @@
-import React, { useState, useRef } from 'react';
-import { Product } from '../../types';
-import { useStore } from '../../context/StoreContext';
-import { 
-  ShoppingBag, 
-  Heart, 
-  Scale, 
-  Star, 
-  Check, 
-  Zap, 
-  ArrowRight,
-  ShieldCheck,
-  Truck,
-  Sparkles
-} from 'lucide-react';
+const fs = require('fs');
 
-interface ProductCardProps {
-  product: Product;
-  isPurchased?: boolean;
-}
+let content = fs.readFileSync('src/components/common/ProductCard.tsx', 'utf8');
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, isPurchased = false }) => {
-  const { 
-    addToCart, 
-    toggleWishlist, 
-    isInWishlist, 
-    addToCompare, 
-    removeFromCompare, 
-    isInCompare, 
-    navigate 
-  } = useStore();
-
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [rotX, setRotX] = useState(0);
-  const [rotY, setRotY] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Selected variant size state (default to first variant or product default)
-  const [selectedSize, setSelectedSize] = useState<string>(product.weightOrPackSize);
-
-  // Calculate dynamic price based on selected size variant
-  const activeVariant = product.variants?.find(v => v.size === selectedSize);
-  const activeSalePrice = activeVariant ? activeVariant.salePrice : product.salePrice;
-  const activeRegularPrice = activeVariant ? activeVariant.price : product.regularPrice;
-
-  const discountPercent = activeRegularPrice > activeSalePrice
-    ? Math.round(((activeRegularPrice - activeSalePrice) / activeRegularPrice) * 100)
-    : 0;
-
-  const savingsAmount = activeRegularPrice > activeSalePrice
-    ? activeRegularPrice - activeSalePrice
-    : 0;
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-
-    setRotX(rotateX);
-    setRotY(rotateY);
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setRotX(0);
-    setRotY(0);
-  };
-
-  const isFav = isInWishlist(product.id);
-  const inComp = isInCompare(product.id);
-
-  // Key nutrition metrics callout tailored for authentic supplement buying experience
-  const getNutritionHighlight = (p: Product): string => {
-    if (p.category === 'Whey Protein') {
-      const protein = p.proteinPerServing || (p.nutritionalInfo && p.nutritionalInfo['Protein']) || '28g';
-      const bcaa = (p.nutritionalInfo && p.nutritionalInfo['BCAAs']) || '6.3g';
-      return `${protein} Protein • ${bcaa} BCAAs • 0g Sugar`;
-    }
-    if (p.category === 'Creatine') {
-      return '200 Mesh Micronized • 100% Pure ATP';
-    }
-    if (p.category === 'Pre-Workout') {
-      return '300mg Caffeine • 6g Citrulline • Pump Matrix';
-    }
-    if (p.category === 'Mass Gainer') {
-      const cal = p.caloriesPerServing || '1,250 kcal';
-      const prot = p.proteinPerServing || '50g';
-      return `${cal} • ${prot} Protein • Multi-Carbs`;
-    }
-    if (p.category === 'Fat Burner') {
-      return 'Thermogenic Cut • L-Carnitine • Zero Crash';
-    }
-    if (p.category === 'Protein Bars') {
-      return '20g Protein • Zero Added Sugar • Real Whey';
-    }
-    if (p.category === 'Multivitamins') {
-      return '100% RDA Minerals • 32 Bio-Active Nutrients';
-    }
-    return p.shortDescription || `${p.servings} Servings • Lab Certified`;
-  };
-
-  return (
+const returnIndex = content.indexOf('return (');
+if (returnIndex !== -1) {
+  content = content.slice(0, returnIndex);
+  
+  const newReturn = `return (
     <div
       ref={cardRef}
-      id={`product-card-${product.id}`}
+      id={\`product-card-\${product.id}\`}
       onClick={() => navigate('product', { id: product.slug || product.id })}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
         transform: isHovered
-          ? `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`
+          ? \`perspective(1000px) rotateX(\${rotX}deg) rotateY(\${rotY}deg) translateY(-6px)\`
           : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)',
         transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.4s ease-out, border-color 0.3s ease'
       }}
@@ -124,8 +24,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isPurchased =
     >
       {/* 1. Product image against a dark background */}
       <div className="relative aspect-[4/3.5] w-full bg-[radial-gradient(circle_at_center,#221a1a_0%,#0a0a0a_70%,#000000_100%)] flex items-center justify-center p-6 border-b border-neutral-800">
-        
-
         <img
           src={product.images[0]}
           alt={product.name}
@@ -138,7 +36,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isPurchased =
             onClick={(e) => { e.stopPropagation(); toggleWishlist(product.id); }} 
             className="p-2 rounded-full bg-black/60 text-neutral-400 hover:text-white transition-colors"
           >
-            <Heart className={`w-4 h-4 ${isFav ? 'fill-red-500 text-red-500' : 'fill-transparent'}`} />
+            <Heart className={\`w-4 h-4 \${isFav ? 'fill-red-500 text-red-500' : 'fill-transparent'}\`} />
           </button>
         </div>
       </div>
@@ -182,11 +80,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isPurchased =
               <button
                 key={v.id}
                 onClick={() => setSelectedSize(v.size)}
-                className={`px-2.5 py-1 rounded text-[11px] font-bold transition-colors border ${
+                className={\`px-2.5 py-1 rounded text-[11px] font-bold transition-colors border \${
                   selectedSize === v.size
-                    ? 'bg-yellow-500 text-black border-yellow-500'
+                    ? 'bg-[#D4AF37]/10 text-[#D4AF37] border-[#D4AF37]'
                     : 'bg-transparent text-neutral-400 border-neutral-700 hover:border-neutral-500'
-                }`}
+                }\`}
               >
                 {v.size}
               </button>
@@ -229,7 +127,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isPurchased =
         <div className="grid grid-cols-2 gap-2.5 pt-3 border-t border-neutral-800/80">
           <button
             onClick={(e) => { e.stopPropagation(); addToCart(product, product.flavour, selectedSize); }}
-            className="w-full py-2.5 rounded-lg bg-yellow-600 hover:bg-yellow-500 text-black text-[13px] font-bold flex items-center justify-center gap-2 transition-all shadow-md"
+            className="w-full py-2.5 rounded-lg bg-neutral-900 border border-neutral-700 text-[#D4AF37] hover:border-[#D4AF37] hover:bg-neutral-800 text-[13px] font-bold flex items-center justify-center gap-2 transition-all"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             Add to Cart
@@ -239,7 +137,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isPurchased =
               e.stopPropagation();
               if (addToCart(product, product.flavour, selectedSize)) navigate('checkout');
             }}
-            className="w-full py-2.5 rounded-lg bg-yellow-400 hover:bg-yellow-300 text-black text-[13px] font-bold flex items-center justify-center gap-2 transition-all shadow-[0_4px_12px_rgba(250,204,21,0.3)]"
+            className="w-full py-2.5 rounded-lg bg-[#D4AF37] hover:bg-amber-400 text-black text-[13px] font-bold flex items-center justify-center gap-2 transition-all shadow-[0_4px_12px_rgba(212,175,55,0.2)]"
           >
             <Zap className="w-3.5 h-3.5 fill-current" />
             Buy Now
@@ -249,3 +147,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isPurchased =
     </div>
   );
 };
+`;
+
+  fs.writeFileSync('src/components/common/ProductCard.tsx', content + newReturn);
+  console.log("ProductCard updated successfully.");
+} else {
+  console.log("Could not find return statement in ProductCard.");
+}
