@@ -246,13 +246,13 @@ export const OrderTrackingPage: React.FC = () => {
               </div>
 
               <a
-                href={`https://wa.me/91${settings.whatsapp}?text=Hi%20RND!%20Need%20update%20on%20my%20order%20${order.id}`}
+                href={`https://wa.me/919306667128?text=Hi%20RND!%20Need%20update%20on%20my%20order%20${order.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Contact Courier Desk</span>
+                <span>Support: 9306667128</span>
               </a>
             </div>
           </div>
